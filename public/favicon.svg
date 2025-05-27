@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="16" cy="16" r="16" fill="#2563EB"/>
+  
+  <!-- L Letter -->
+  <path d="M10 10H14V22H10V10Z" fill="white"/>
+  
+  <!-- A Letter -->
+  <path d="M18 10L22 22H18L17 19H15L14 22H10L14 10H18ZM16 16H17L16.5 14.5L16 16Z" fill="white"/>
+</svg> 
