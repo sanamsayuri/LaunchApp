@@ -176,7 +176,10 @@ const Index = () => {
   };
 
   const openWhatsApp = () => {
-    window.open("https://wa.me/919876543210?text=Hi%20LaunchApp,%20I%20need%20help%20with%20an%20app%20or%20website%20project.", "_blank");
+    const phoneNumber = "916207746511";
+    const message = "Hi LaunchApp, I need help with an app or website project.";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -678,7 +681,14 @@ const Index = () => {
                 </div>
                 <div className="flex items-center space-x-4 hover:translate-x-2 transition-transform duration-300">
                   <Phone className="w-6 h-6 text-blue-600" />
-                  <span className="text-lg text-gray-600">+91 62077 46511</span>
+                  <a
+                    href="https://wa.me/916207746511"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 transition-colors"
+                  >
+                    +91 62077 46511
+                  </a>
                 </div>
               </div>
               <Button 
