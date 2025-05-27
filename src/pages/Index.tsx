@@ -24,6 +24,12 @@ import {
   Instagram,
   ArrowUp
 } from "lucide-react";
+import emailjs from '@emailjs/browser';
+import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
+
+// Initialize EmailJS
+emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
 
 const floatAnimation = `
 @keyframes float {
@@ -40,12 +46,14 @@ const floatAnimation = `
 `;
 
 const Index = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     projectType: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [animatedCounts, setAnimatedCounts] = useState({
     projects: 0,
@@ -104,11 +112,67 @@ const Index = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! I'll get back to you within 24 hours.");
-    setFormData({ name: "", email: "", projectType: "", message: "" });
+    setIsSubmitting(true);
+    
+    try {
+      // Validate form data
+      if (!formData.name || !formData.email || !formData.message) {
+        throw new Error("Please fill in all required fields");
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        throw new Error("Please enter a valid email address");
+      }
+
+      const templateParams = {
+        to_email: 'info@launchapp.site',
+        to_name: 'LaunchApp Team',
+        from_name: formData.name,
+        from_email: formData.email,
+        project_type: formData.projectType || 'Not specified',
+        message: formData.message,
+        reply_to: formData.email,
+      };
+
+      console.log('Sending email with params:', templateParams);
+
+      const response = await emailjs.send(
+        'service_launchapp',
+        'template_launchapp',
+        templateParams
+      );
+
+      console.log('Email sent successfully:', response);
+      
+      toast({
+        variant: "success",
+        title: "Message Sent!",
+        description: "Thank you for your message! We'll get back to you within 24 hours.",
+      });
+      
+      setFormData({ name: "", email: "", projectType: "", message: "" });
+    } catch (error) {
+      console.error('Error details:', error);
+      if (error instanceof Error) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.message,
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Sorry, there was an error sending your message. Please try again later.",
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const openWhatsApp = () => {
@@ -610,11 +674,11 @@ const Index = () => {
               <div className="space-y-6">
                 <div className="flex items-center space-x-4 hover:translate-x-2 transition-transform duration-300">
                   <Mail className="w-6 h-6 text-blue-600" />
-                  <span className="text-lg text-gray-600">LaunchApp@mail.com</span>
+                  <span className="text-lg text-gray-600">info@launchapp.site</span>
                 </div>
                 <div className="flex items-center space-x-4 hover:translate-x-2 transition-transform duration-300">
                   <Phone className="w-6 h-6 text-blue-600" />
-                  <span className="text-lg text-gray-600">+91 98765 43210</span>
+                  <span className="text-lg text-gray-600">+91 62077 46511</span>
                 </div>
               </div>
               <Button 
@@ -698,9 +762,10 @@ const Index = () => {
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  disabled={isSubmitting}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </Card>
@@ -717,7 +782,7 @@ const Index = () => {
               <p className="text-gray-400 mb-4 max-w-md">
                 Building the future, one app and website at a time. Let's create something amazing together.
               </p>
-              <p className="text-gray-400">LaunchApp@mail.com</p>
+              <p className="text-gray-400">info@launchapp.site</p>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
@@ -761,6 +826,8 @@ const Index = () => {
       >
         <MessageCircle className="w-6 h-6" />
       </button>
+
+      <Toaster />
     </div>
   );
 };
