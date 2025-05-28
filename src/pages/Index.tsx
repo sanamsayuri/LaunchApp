@@ -27,14 +27,10 @@ import {
 import emailjs from '@emailjs/browser';
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import { useNavigate } from "react-router-dom";
 
 // Initialize EmailJS
-// Replace this with your actual public key from EmailJS dashboard
-emailjs.init("5i-K6ZMOctSU-VtjT"); // Get this from EmailJS dashboard -> Account -> API Keys -> Public Key
-
-// EmailJS Configuration
-const EMAILJS_SERVICE_ID = "service_sztlpqs"; // Your service ID from EmailJS
-const EMAILJS_TEMPLATE_ID = "template_eqpkrc7"; // Your template ID from EmailJS
+emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
 
 const floatAnimation = `
 @keyframes float {
@@ -50,13 +46,11 @@ const floatAnimation = `
 }
 `;
 
-
 const Index = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
     projectType: "",
     message: ""
   });
@@ -67,6 +61,7 @@ const Index = () => {
     rating: 0,
     satisfaction: 0
   });
+  const navigate = useNavigate();
 
   // Scroll to top button visibility
   useEffect(() => {
@@ -135,20 +130,11 @@ const Index = () => {
         throw new Error("Please enter a valid email address");
       }
 
-      // Validate phone number (optional field)
-      if (formData.phone) {
-        const phoneRegex = /^[0-9+\-\s()]{10,}$/;
-        if (!phoneRegex.test(formData.phone)) {
-          throw new Error("Please enter a valid phone number");
-        }
-      }
-
       const templateParams = {
-        to_email: 'pankajkr9119@gmail.com',
-        to_name: 'Pankaj Kumar',
+        to_email: 'info@launchapp.site',
+        to_name: 'LaunchApp Team',
         from_name: formData.name,
         from_email: formData.email,
-        phone_number: formData.phone || 'Not provided',
         project_type: formData.projectType || 'Not specified',
         message: formData.message,
         reply_to: formData.email,
@@ -157,8 +143,8 @@ const Index = () => {
       console.log('Sending email with params:', templateParams);
 
       const response = await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
+        'service_launchapp',
+        'template_launchapp',
         templateParams
       );
 
@@ -170,7 +156,7 @@ const Index = () => {
         description: "Thank you for your message! We'll get back to you within 24 hours.",
       });
       
-      setFormData({ name: "", email: "", phone: "", projectType: "", message: "" });
+      setFormData({ name: "", email: "", projectType: "", message: "" });
     } catch (error) {
       console.error('Error details:', error);
       if (error instanceof Error) {
@@ -206,8 +192,13 @@ const Index = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleServiceClick = (serviceId: string) => {
+    navigate(`/services/${serviceId}`);
+  };
+
   const services = [
     {
+      id: "mobile-app-development",
       icon: <Smartphone className="w-12 h-12 text-blue-600" />,
       title: "Mobile App Development",
       description: "Native Android & iOS apps using Flutter for seamless cross-platform performance.",
@@ -215,6 +206,7 @@ const Index = () => {
       image: "photo-1551650975-87deedd944c3"
     },
     {
+      id: "website-development",
       icon: <Globe className="w-12 h-12 text-blue-600" />,
       title: "Website Development",
       description: "From simple landing pages to complex e-commerce platforms built with modern technologies.",
@@ -222,6 +214,7 @@ const Index = () => {
       image: "photo-1460925895917-afdab827c52f"
     },
     {
+      id: "seo-optimization",
       icon: <TrendingUp className="w-12 h-12 text-blue-600" />,
       title: "SEO & App Store Optimization",
       description: "Boost your visibility with proven SEO strategies and ASO techniques.",
@@ -229,6 +222,7 @@ const Index = () => {
       image: "photo-1571781926291-c477ebfd024b"
     },
     {
+      id: "social-media-marketing",
       icon: <Users className="w-12 h-12 text-blue-600" />,
       title: "Social Media Marketing",
       description: "Grow your brand presence and engage with your audience through strategic social media campaigns.",
@@ -476,8 +470,9 @@ const Index = () => {
             {services.map((service, index) => (
               <Card 
                 key={index} 
-                className="overflow-hidden hover:shadow-xl transition-all duration-500 border-0 bg-white transform hover:-translate-y-6 hover:scale-105 group animate-fade-in hover:bg-blue-500/10"
+                className="overflow-hidden hover:shadow-xl transition-all duration-500 border-0 bg-white transform hover:-translate-y-6 hover:scale-105 group animate-fade-in hover:bg-blue-500/10 cursor-pointer"
                 style={{ animationDelay: `${index * 200}ms` }}
+                onClick={() => handleServiceClick(service.id)}
               >
                 <div className="flex justify-center pt-6">
                   <div className="w-64 h-56 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 overflow-hidden group-hover:from-blue-200 group-hover:to-blue-300 transition-colors duration-300 border-2 border-blue-200 shadow-md group-hover:border-blue-400 group-hover:shadow-lg">
@@ -775,19 +770,6 @@ const Index = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number
-                  </label>
-                  <Input
-                    type="tel"
-                    id="phone"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full transition-all duration-300 focus:scale-105"
-                    placeholder="+91 1234567890"
-                  />
-                </div>
-                <div>
                   <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 mb-2">
                     Project Type
                   </label>
@@ -850,10 +832,30 @@ const Index = () => {
             <div>
               <h4 className="text-lg font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-gray-400">
-                <li className="hover:text-white transition-colors duration-300">Mobile Apps</li>
-                <li className="hover:text-white transition-colors duration-300">Website Development</li>
-                <li className="hover:text-white transition-colors duration-300">SEO Optimization</li>
-                <li className="hover:text-white transition-colors duration-300">Maintenance & Support</li>
+                <li 
+                  onClick={() => handleServiceClick("mobile-app-development")}
+                  className="hover:text-white transition-colors duration-300 cursor-pointer hover:translate-x-1 transform"
+                >
+                  Mobile Apps
+                </li>
+                <li 
+                  onClick={() => handleServiceClick("website-development")}
+                  className="hover:text-white transition-colors duration-300 cursor-pointer hover:translate-x-1 transform"
+                >
+                  Website Development
+                </li>
+                <li 
+                  onClick={() => handleServiceClick("seo-optimization")}
+                  className="hover:text-white transition-colors duration-300 cursor-pointer hover:translate-x-1 transform"
+                >
+                  SEO Optimization
+                </li>
+                <li 
+                  onClick={() => handleServiceClick("social-media-marketing")}
+                  className="hover:text-white transition-colors duration-300 cursor-pointer hover:translate-x-1 transform"
+                >
+                  Social Media Marketing
+                </li>
               </ul>
             </div>
           </div>
