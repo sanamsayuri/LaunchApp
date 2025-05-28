@@ -29,7 +29,12 @@ import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 
 // Initialize EmailJS
-emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
+// Replace this with your actual public key from EmailJS dashboard
+emailjs.init("5i-K6ZMOctSU-VtjT"); // Get this from EmailJS dashboard -> Account -> API Keys -> Public Key
+
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = "service_sztlpqs"; // Your service ID from EmailJS
+const EMAILJS_TEMPLATE_ID = "template_eqpkrc7"; // Your template ID from EmailJS
 
 const floatAnimation = `
 @keyframes float {
@@ -45,11 +50,13 @@ const floatAnimation = `
 }
 `;
 
+
 const Index = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     projectType: "",
     message: ""
   });
@@ -128,11 +135,20 @@ const Index = () => {
         throw new Error("Please enter a valid email address");
       }
 
+      // Validate phone number (optional field)
+      if (formData.phone) {
+        const phoneRegex = /^[0-9+\-\s()]{10,}$/;
+        if (!phoneRegex.test(formData.phone)) {
+          throw new Error("Please enter a valid phone number");
+        }
+      }
+
       const templateParams = {
-        to_email: 'info@launchapp.site',
-        to_name: 'LaunchApp Team',
+        to_email: 'pankajkr9119@gmail.com',
+        to_name: 'Pankaj Kumar',
         from_name: formData.name,
         from_email: formData.email,
+        phone_number: formData.phone || 'Not provided',
         project_type: formData.projectType || 'Not specified',
         message: formData.message,
         reply_to: formData.email,
@@ -141,8 +157,8 @@ const Index = () => {
       console.log('Sending email with params:', templateParams);
 
       const response = await emailjs.send(
-        'service_launchapp',
-        'template_launchapp',
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
         templateParams
       );
 
@@ -154,7 +170,7 @@ const Index = () => {
         description: "Thank you for your message! We'll get back to you within 24 hours.",
       });
       
-      setFormData({ name: "", email: "", projectType: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", projectType: "", message: "" });
     } catch (error) {
       console.error('Error details:', error);
       if (error instanceof Error) {
@@ -756,6 +772,19 @@ const Index = () => {
                     required
                     className="w-full transition-all duration-300 focus:scale-105"
                     placeholder="your@email.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone Number
+                  </label>
+                  <Input
+                    type="tel"
+                    id="phone"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    className="w-full transition-all duration-300 focus:scale-105"
+                    placeholder="+91 1234567890"
                   />
                 </div>
                 <div>
