@@ -193,6 +193,7 @@ const Index = () => {
   };
 
   const handleServiceClick = (serviceId: string) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     navigate(`/services/${serviceId}`);
   };
 
@@ -238,42 +239,44 @@ const Index = () => {
 
   const portfolio = [
     {
-      title: "FitTrack Pro",
-      description: "A comprehensive fitness tracking app with workout plans, progress monitoring, and social features for fitness enthusiasts.",
-      tech: ["Flutter", "Firebase", "Stripe API", "Google Fit"],
-      image: "photo-1571019613454-1cb2f99b2d8b",
-      category: "Mobile App"
+      title: "Cake Connect - Match 3 Game",
+      description: "A delightful match-3 puzzle game with tasty graphics and challenging levels. Features include boosters, special items, and leaderboard competition.",
+      image: "photo-1551024601-bec78aea704b",
+      category: "Game",
+      url: "https://play.google.com/store/apps/details?id=com.gamemotion.cakeconnect"
     },
     {
-      title: "ShopEasy E-commerce",
-      description: "Full-featured e-commerce platform with payment integration, inventory management, and customer analytics.",
-      tech: ["React", "Node.js", "MongoDB", "Razorpay"],
-      image: "photo-1556742049-0cfed4f6a45d",
-      category: "Web Platform"
+      title: "Habit Aura - Habit Tracker",
+      description: "Your ultimate habit tracking companion with smart tracking, streaks, progress insights, and customizable goals. Perfect for building good habits and breaking bad ones.",
+      image: "photo-1551434678-e076c223a692",
+      category: "Mobile App",
+      url: "https://play.google.com/store/apps/details?id=app.habitaura.habit.tracker"
     },
     {
-      title: "LocalBiz Directory",
-      description: "Location-based business directory with maps integration, reviews, and booking system for local businesses.",
-      tech: ["WordPress", "Google Maps API", "MySQL", "WooCommerce"],
-      image: "photo-1507003211169-0a1dd7228f2d",
-      category: "Business Website"
+      title: "PackageGoal",
+      description: "A comprehensive job posting and career news platform built with WordPress. Features include job listings, career advice, and company insights.",
+      image: "photo-1460925895917-afdab827c52f",
+      category: "WordPress",
+      url: "https://packagegoal.com/"
     }
   ];
 
   const testimonials = [
     {
-      name: "Priya Sharma",
-      company: "FreshMart Grocery",
-      text: "LaunchApp built our e-commerce app in just 6 weeks. Sales increased by 300% in the first month. Highly professional and delivers on time!",
+      name: "Vishal",
+      company: "Habit Aura",
+      text: "Working with LaunchApp was a great experience! He built a clean, user-friendly Habit Tracker app with powerful features like daily tracking, reminders, and progress analytics. He was professional, met deadlines, and above and beyond with helpful suggestions. Highly recommended!",
       rating: 5,
-      avatar: "photo-1573496359142-b8d87734a5a2"
+      avatar: "photo-1507003211169-0a1dd7228f2d",
+      url: "https://play.google.com/store/apps/details?id=app.habitaura.habit.tracker"
     },
     {
-      name: "Rahul Gupta", 
-      company: "TechStart Solutions",
-      text: "Amazing work on our company website. The design is modern, loads fast, and we're getting more leads than ever. Great value for money!",
+      name: "Sonam", 
+      company: "PackageGoal",
+      text: "LaunchApp delivered an excellent website for my business — clean design, mobile-friendly, and fast-loading. He understood my requirements perfectly, communicated clearly, and delivered on time.",
       rating: 5,
-      avatar: "photo-1472099645785-5658abf4ff4e"
+      avatar: "photo-1573497019940-1c28c88b4f3e",
+      url: "https://packagegoal.com/"
     }
   ];
 
@@ -303,24 +306,48 @@ const Index = () => {
   const pricingPackages = [
     {
       name: "Starter",
-      price: "₹10,000",
-      description: "Perfect for landing pages and portfolios",
-      features: ["One-page website", "Mobile responsive", "Contact form", "Basic SEO", "1 month support"],
-      popular: false
+      price: "From $20",
+      description: "Best for landing pages and simple one-pagers",
+      features: [
+        "One-page website or landing page (App/Web)",
+        "Mobile responsive design",
+        "Basic SEO optimization",
+        "Contact form integration",
+        "Google Analytics setup",
+        "1 Week Free Support"
+      ],
+      popular: false,
+      idealFor: "Ideal for portfolios, small promos, or app pre-launch pages."
     },
     {
       name: "Pro",
-      price: "₹20,000",
-      description: "Ideal for business websites and simple apps",
-      features: ["Multi-page website", "CMS integration", "Payment gateway", "Advanced SEO", "3 months support"],
-      popular: false
+      price: "From $100",
+      description: "Perfect for growing businesses and simple apps",
+      features: [
+        "Multi-page website or MVP mobile app",
+        "CMS integration (WordPress, Wix, Shopify)",
+        "Payment gateway integration (Stripe, Razorpay)",
+        "Advanced On-page SEO",
+        "Speed optimization & responsive testing",
+        "1 Month Free Support"
+      ],
+      popular: true,
+      idealFor: "Great for small businesses, blogs, or service-based platforms."
     },
     {
       name: "Premium",
-      price: "₹40,000+",
-      description: "For complex apps and e-commerce platforms",
-      features: ["Custom Flutter app", "Admin dashboard", "API integration", "App store submission", "6 months support"],
-      popular: false
+      price: "From $200",
+      description: "For fully-featured apps and complex systems",
+      features: [
+        "Full Flutter mobile app (Android & iOS)",
+        "Admin dashboard (React / Flutter Web)",
+        "API & backend integration (Node.js / Firebase)",
+        "E-commerce, real-time chat, push notifications",
+        "App Store & Play Store deployment",
+        "2 Months Free Support"
+      ],
+      popular: false,
+      idealFor: "Designed for startups and companies needing robust, scalable solutions."
     }
   ];
 
@@ -540,17 +567,14 @@ const Index = () => {
                     <Badge className="bg-blue-600 text-white group-hover:bg-blue-700 transition-colors duration-300 hover:scale-110 transform hover:rotate-1">{project.category}</Badge>
                   </div>
                   <p className="text-gray-600 mb-4 group-hover:text-gray-900 transition-colors duration-300">{project.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, techIndex) => (
-                      <Badge 
-                        key={techIndex} 
-                        variant="outline" 
-                        className="border-blue-200 text-blue-700 hover:bg-blue-50 transition-colors duration-300 hover:scale-110 transform hover:rotate-1"
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
+                  {project.url && (
+                    <Button 
+                      onClick={() => window.open(project.url, '_blank')}
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 transform hover:scale-105 transition-all duration-300"
+                    >
+                      View Project
+                    </Button>
+                  )}
                 </div>
               </Card>
             ))}
@@ -605,20 +629,31 @@ const Index = () => {
               >
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current animate-pulse group-hover:scale-110 transform" style={{ animationDelay: `${i * 100}ms` }} />
+                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current group-hover:scale-110 transform" style={{ animationDelay: `${i * 100}ms` }} />
                   ))}
                 </div>
                 <p className="text-lg text-gray-700 mb-6 italic group-hover:text-gray-900 transition-colors duration-300 hover:scale-105 transform">"{testimonial.text}"</p>
-                <div className="flex items-center space-x-4">
-                  <img 
-                    src={`https://images.unsplash.com/${testimonial.avatar}?auto=format&fit=crop&w=80&h=80&q=80`}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover group-hover:scale-110 transform transition-transform duration-300"
-                  />
-                  <div>
-                    <p className="font-semibold text-gray-900 text-lg group-hover:text-blue-600 transition-colors duration-300">{testimonial.name}</p>
-                    <p className="text-blue-600 group-hover:text-blue-700 transition-colors duration-300">{testimonial.company}</p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <img 
+                      src={`https://images.unsplash.com/${testimonial.avatar}?auto=format&fit=crop&w=80&h=80&q=80`}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover group-hover:scale-110 transform transition-transform duration-300"
+                    />
+                    <div>
+                      <p className="font-semibold text-gray-900 text-lg group-hover:text-blue-600 transition-colors duration-300">{testimonial.name}</p>
+                      <p className="text-blue-600 group-hover:text-blue-700 transition-colors duration-300">{testimonial.company}</p>
+                    </div>
                   </div>
+                  {testimonial.url && (
+                    <Button
+                      onClick={() => window.open(testimonial.url, '_blank')}
+                      variant="outline"
+                      className="border-blue-600 text-blue-600 hover:bg-blue-50 hover:scale-110 transform transition-all duration-300"
+                    >
+                      View Project
+                    </Button>
+                  )}
                 </div>
               </Card>
             ))}
@@ -641,17 +676,14 @@ const Index = () => {
                 key={index} 
                 className={`p-8 hover:shadow-xl transition-all duration-500 border-2 transform hover:-translate-y-6 hover:scale-105 animate-fade-in ${
                   pkg.popular 
-                    ? 'border-blue-500 bg-blue-50 hover:bg-blue-500/20 animate-float' 
+                    ? 'border-blue-500 bg-blue-50 hover:bg-blue-500/20' 
                     : 'border-gray-200 bg-white hover:bg-blue-500/10 hover:border-blue-300'
                 }`}
-                style={{ 
-                  animationDelay: `${index * 200}ms`,
-                  animation: pkg.popular ? 'float 6s ease-in-out infinite' : undefined
-                }}
+                style={{ animationDelay: `${index * 200}ms` }}
               >
                 {pkg.popular && (
-                  <div className="text-center mb-4 animate-bounce">
-                    <Badge className="bg-blue-600 text-white px-4 py-1 animate-pulse">Most Popular</Badge>
+                  <div className="text-center mb-4">
+                    <Badge className="bg-blue-600 text-white px-4 py-1">Most Popular</Badge>
                   </div>
                 )}
                 <div className="text-center mb-6">
@@ -666,16 +698,17 @@ const Index = () => {
                       className="flex items-center animate-fade-in hover:translate-x-2 transition-transform duration-300" 
                       style={{ animationDelay: `${featureIndex * 100}ms` }}
                     >
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 animate-pulse" style={{ animationDelay: `${featureIndex * 100}ms` }} />
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
                       <span className="text-gray-700 hover:text-blue-600 transition-colors duration-300">{feature}</span>
                     </li>
                   ))}
                 </ul>
+                <p className="text-sm text-gray-600 mb-6 italic">{pkg.idealFor}</p>
                 <Button 
                   onClick={() => scrollToSection("contact")}
                   className={`w-full py-3 transition-all duration-300 transform hover:scale-105 hover:rotate-1 ${
                     pkg.popular 
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/50 animate-pulse' 
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/50' 
                       : 'border-blue-600 text-blue-600 hover:bg-blue-50 hover:shadow-lg hover:shadow-blue-500/30'
                   }`}
                   variant={pkg.popular ? "default" : "outline"}
@@ -724,20 +757,6 @@ const Index = () => {
                 <MessageCircle className="w-5 h-5" />
                 <span>Chat on WhatsApp</span>
               </Button>
-              <div className="mt-8">
-                <h4 className="text-lg font-semibold text-gray-900 mb-4">Follow Me</h4>
-                <div className="flex space-x-4">
-                  <a href="#" className="p-2 bg-gray-100 rounded-full hover:bg-blue-100 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1">
-                    <Linkedin className="w-5 h-5 text-gray-600 hover:text-blue-600 transition-colors duration-300" />
-                  </a>
-                  <a href="#" className="p-2 bg-gray-100 rounded-full hover:bg-blue-100 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1">
-                    <Github className="w-5 h-5 text-gray-600 hover:text-blue-600 transition-colors duration-300" />
-                  </a>
-                  <a href="#" className="p-2 bg-gray-100 rounded-full hover:bg-blue-100 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1">
-                    <Instagram className="w-5 h-5 text-gray-600 hover:text-blue-600 transition-colors duration-300" />
-                  </a>
-                </div>
-              </div>
             </div>
             <Card className="p-8 border-0 bg-white shadow-xl animate-fade-in animation-delay-700 transform hover:scale-105 transition-all duration-300">
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -860,7 +879,7 @@ const Index = () => {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-            <p className="text-gray-400">© 2024 LaunchApp . All rights reserved.</p>
+            <p className="text-gray-400">© 2025 LaunchApp . All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -869,7 +888,7 @@ const Index = () => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 z-50 animate-bounce"
+          className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 z-50"
         >
           <ArrowUp className="w-5 h-5" />
         </button>
