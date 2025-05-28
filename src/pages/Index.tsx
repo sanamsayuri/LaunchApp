@@ -73,7 +73,7 @@ const Index = () => {
   // Animated counters
   useEffect(() => {
     const animateCounters = () => {
-      const targets = { projects: 50, rating: 49, satisfaction: 100 };
+      const targets = { projects: 30, rating: 49, satisfaction: 100 };
       const duration = 2000;
       const steps = 60;
       const stepTime = duration / steps;
@@ -195,31 +195,35 @@ const Index = () => {
       icon: <Smartphone className="w-12 h-12 text-blue-600" />,
       title: "Mobile App Development",
       description: "Native Android & iOS apps using Flutter for seamless cross-platform performance.",
-      features: ["Flutter Development", "Firebase Integration", "App Store Deployment", "Push Notifications"]
+      features: ["Flutter Development", "Firebase Integration", "App Store Deployment", "Push Notifications"],
+      image: "photo-1551650975-87deedd944c3"
     },
     {
       icon: <Globe className="w-12 h-12 text-blue-600" />,
       title: "Website Development",
       description: "From simple landing pages to complex e-commerce platforms built with modern technologies.",
-      features: ["WordPress Sites", "React Applications", "E-commerce Stores", "SEO Optimized"]
+      features: ["WordPress Sites", "React Applications", "E-commerce Stores", "SEO Optimized"],
+      image: "photo-1460925895917-afdab827c52f"
     },
     {
       icon: <TrendingUp className="w-12 h-12 text-blue-600" />,
       title: "SEO & App Store Optimization",
       description: "Boost your visibility with proven SEO strategies and ASO techniques.",
-      features: ["Keyword Research", "On-page SEO", "App Store Rankings", "Analytics Setup"]
+      features: ["Keyword Research", "On-page SEO", "App Store Rankings", "Analytics Setup"],
+      image: "photo-1571781926291-c477ebfd024b"
     },
     {
-      icon: <Settings className="w-12 h-12 text-blue-600" />,
-      title: "Hosting & Maintenance",
-      description: "Keep your apps and websites running smoothly with ongoing support and updates.",
-      features: ["24/7 Monitoring", "Security Updates", "Performance Optimization", "Bug Fixes"]
+      icon: <Users className="w-12 h-12 text-blue-600" />,
+      title: "Social Media Marketing",
+      description: "Grow your brand presence and engage with your audience through strategic social media campaigns.",
+      features: ["Content Strategy", "Community Management", "Paid Advertising", "Analytics & Reporting"],
+      image: "photo-1611162617213-7d7a39e9b1d7"
     }
   ];
 
   const techStack = [
-    "Flutter", "Firebase", "React", "WordPress", "Kotlin", "Swift", "Node.js", 
-    "MongoDB", "Stripe", "Razorpay", "Google Maps API", "WooCommerce"
+    "React", "WordPress", "Wix", "Shopify", "Flutter", "Firebase",  "Kotlin", "Swift", "Node.js", 
+    "MongoDB", "TypeScript", "Stripe", "Razorpay", "Google Maps API", "WooCommerce", "Java", "Python"
   ];
 
   const portfolio = [
@@ -375,7 +379,7 @@ const Index = () => {
             <div className="animate-fade-in">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">About LaunchApp</h2>
               <p className="text-xl text-gray-600 mb-6">
-                With over 3 years of experience in mobile and web development, We specialize in creating digital solutions that help businesses grow and succeed in today's competitive market.
+                With over 5 years of experience in mobile, web development, SEO, Content Writing and Social Media Marketing, We specialize in creating digital solutions that help businesses grow and succeed in today's competitive market.
               </p>
               <p className="text-lg text-gray-600 mb-8">
                 We've worked with startups, small businesses, and entrepreneurs to bring their ideas to life through clean code, modern design, and user-focused experiences.
@@ -397,7 +401,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {/* <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {["Flutter", "Firebase", "React", "WordPress", "Kotlin", "Swift"].map((tech, index) => (
                   <Badge 
                     key={tech} 
@@ -407,7 +411,7 @@ const Index = () => {
                     {tech}
                   </Badge>
                 ))}
-              </div>
+              </div> */}
             </div>
             <div className="flex justify-center animate-fade-in animation-delay-500">
               <div className="w-[432px] h-[432px] bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center transform hover:scale-105 transition-all duration-500 shadow-2xl border-2 border-blue-500">
@@ -456,26 +460,37 @@ const Index = () => {
             {services.map((service, index) => (
               <Card 
                 key={index} 
-                className="p-8 hover:shadow-xl transition-all duration-500 border-0 bg-white transform hover:-translate-y-6 hover:scale-105 group animate-fade-in hover:bg-blue-500/10"
+                className="overflow-hidden hover:shadow-xl transition-all duration-500 border-0 bg-white transform hover:-translate-y-6 hover:scale-105 group animate-fade-in hover:bg-blue-500/10"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
-                <div className="flex items-start space-x-6">
-                  <div className="flex-shrink-0 p-3 bg-blue-50 rounded-xl group-hover:bg-blue-100 transition-colors duration-300 group-hover:scale-110 transform group-hover:rotate-3">
-                    {service.icon}
+                <div className="flex justify-center pt-6">
+                  <div className="w-64 h-56 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 overflow-hidden group-hover:from-blue-200 group-hover:to-blue-300 transition-colors duration-300 border-2 border-blue-200 shadow-md group-hover:border-blue-400 group-hover:shadow-lg">
+                    <img 
+                      src={`https://images.unsplash.com/${service.image}?auto=format&fit=crop&w=500&h=500`} 
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300 hover:scale-105 transform">{service.title}</h3>
-                    <p className="text-gray-600 mb-4 group-hover:text-gray-900 transition-colors duration-300">{service.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {service.features.map((feature, featureIndex) => (
-                        <Badge 
-                          key={featureIndex} 
-                          variant="secondary" 
-                          className="bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 transition-colors duration-300 hover:scale-110 transform hover:rotate-1"
-                        >
-                          {feature}
-                        </Badge>
-                      ))}
+                </div>
+                <div className="p-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0 p-2 bg-blue-50 rounded-xl group-hover:bg-blue-100 transition-colors duration-300 group-hover:scale-110 transform group-hover:rotate-3">
+                      {service.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300 hover:scale-105 transform">{service.title}</h3>
+                      <p className="text-gray-600 mb-3 group-hover:text-gray-900 transition-colors duration-300 text-sm">{service.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {service.features.map((feature, featureIndex) => (
+                          <Badge 
+                            key={featureIndex} 
+                            variant="secondary" 
+                            className="bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100 transition-colors duration-300 hover:scale-110 transform hover:rotate-1 text-xs"
+                          >
+                            {feature}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
