@@ -30,7 +30,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { useNavigate } from "react-router-dom";
 
 // Initialize EmailJS
-emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
+emailjs.init("S90XnuRRKlAHfTumy");
 
 const floatAnimation = `
 @keyframes float {
@@ -131,32 +131,42 @@ const Index = () => {
       }
 
       const templateParams = {
-        to_email: 'info@launchapp.site',
-        to_name: 'LaunchApp Team',
         from_name: formData.name,
         from_email: formData.email,
-        project_type: formData.projectType || 'Not specified',
+        to_name: 'LaunchApp Team',
         message: formData.message,
+        project_type: formData.projectType || 'Not specified',
         reply_to: formData.email,
       };
 
       console.log('Sending email with params:', templateParams);
 
-      const response = await emailjs.send(
-        'service_launchapp',
-        'template_launchapp',
-        templateParams
-      );
+      try {
+        const response = await emailjs.send(
+          'service_2xdp6u6',
+          'template_5ku329e',
+          templateParams,
+          'S90XnuRRKlAHfTumy'
+        );
 
-      console.log('Email sent successfully:', response);
-      
-      toast({
-        variant: "success",
-        title: "Message Sent!",
-        description: "Thank you for your message! We'll get back to you within 24 hours.",
-      });
-      
-      setFormData({ name: "", email: "", projectType: "", message: "" });
+        console.log('Email sent successfully:', response);
+        
+        toast({
+          variant: "success",
+          title: "Message Sent!",
+          description: "Thank you for your message! We'll get back to you within 24 hours.",
+        });
+        
+        setFormData({ name: "", email: "", projectType: "", message: "" });
+      } catch (emailError: any) {
+        console.error('EmailJS Error:', {
+          status: emailError.status,
+          text: emailError.text,
+          details: emailError
+        });
+        
+        throw new Error(`Failed to send email: ${emailError.text || 'Unknown error'}`);
+      }
     } catch (error) {
       console.error('Error details:', error);
       if (error instanceof Error) {
