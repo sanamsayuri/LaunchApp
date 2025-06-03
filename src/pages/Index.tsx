@@ -394,7 +394,7 @@ const Index = () => {
             <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 animate-fade-in">
               <span className="text-blue-600 inline-block hover:scale-105 transition-transform duration-300">Smart Apps.</span><br />
               <span className="text-gray-900 inline-block hover:scale-105 transition-transform duration-300">Stunning Websites.</span><br />
-              <span className="text-blue-600 inline-block hover:scale-105 transition-transform duration-300">Scalable Results.</span>
+              <span className="text-blue-600 inline-block hover:scale-105 transition-transform duration-300">Pay with Progress.</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-4xl mx-auto animate-fade-in animation-delay-500">
               We help startups and small businesses build beautiful, high-performing websites and mobile apps that drive growth and engagement.
